@@ -13,9 +13,13 @@ const Formulario = () => {
     <section className="formulario">
       <form onSubmit={manejarEnvio}>
         <h2>Rellena el formulario para crear el colaborador.</h2>
-        <Campo__Texto titulo="Nombre" placeholder="Ingrese nombre" />
-        <Campo__Texto titulo="Puesto" placeholder="Ingresar puesto" />
-        <Campo__Texto titulo="Foto" placeholder="Ingresar enlace de foto" />
+        <Campo__Texto titulo="Nombre" placeholder="Ingrese nombre" required />
+        <Campo__Texto titulo="Puesto" placeholder="Ingresar puesto" required />
+        <Campo__Texto
+          titulo="Foto"
+          placeholder="Ingresar enlace de foto"
+          required
+        />
         <Lista__Opciones titulo="Equipo" />
         <Boton>Crear</Boton>
       </form>
