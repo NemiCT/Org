@@ -13,12 +13,22 @@ const Lista__Opciones = (props) => {
     "Móvil",
     "Innovación y Gestión",
   ];
+
+  const manejarCambio = (e) => {
+    props.actualizarValor(e.target.value);
+  };
+
   return (
     <div className="lista--opciones">
       <label>{props.titulo}</label>
-      <select>
+      <select value={props.valor} onChange={manejarCambio}>
+        <option value="" disabled defaultValue="" hidden>
+          Seleccionar equipo...
+        </option>
         {equipos.map((equipo, index) => (
-          <option key={index}>{equipo}</option>
+          <option key={index} value={equipo}>
+            {equipo}
+          </option>
         ))}
       </select>
     </div>
