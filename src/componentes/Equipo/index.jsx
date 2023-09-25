@@ -4,19 +4,29 @@ import "./Equipo.css";
 const Equipo = (props) => {
   // Destructuración
   const { colorSecundario, titulo, colorPrimario } = props.datos;
+  const { colaboradores } = props;
 
   const estiloBackground = { backgroundColor: colorSecundario };
 
   const estiloTitulo = { borderColor: colorPrimario };
 
   return (
-    <section className="equipo" style={estiloBackground}>
-      <h3 style={estiloTitulo}>{titulo}</h3>
-      <div className="colaboradores">
-        <Colaborador />
-        <Colaborador />
-      </div>
-    </section>
+    <>
+      {colaboradores.length > 0 && (
+        <section className="equipo" style={estiloBackground}>
+          <h3 style={estiloTitulo}>{titulo}</h3>
+          <div className="colaboradores">
+            {colaboradores.map((colaborador, index) => (
+              <Colaborador
+                datos={colaborador}
+                colorPrimario={colorPrimario}
+                key={index}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 

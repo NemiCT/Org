@@ -1,17 +1,20 @@
 import "./Colaborador.css";
 
 const Colaborador = (props) => {
+  const { nombre, puesto, foto } = props.datos;
+  const { colorPrimario } = props;
+
+  const estiloBackground = { backgroundColor: colorPrimario };
+
+  let altFoto = `Fotografía de ${nombre}`;
   return (
     <div className="colaborador">
-      <div className="encabezado">
-        <img
-          src="https://github.com/harlandlohora.png"
-          alt="Fotografía de Harland"
-        />
+      <div className="encabezado" style={estiloBackground}>
+        <img src={foto} alt={altFoto} />
       </div>
       <div className="info">
-        <h4>Harland Lohora</h4>
-        <h5>Instructor</h5>
+        <h4>{nombre}</h4>
+        <h5>{puesto}</h5>
       </div>
     </div>
   );

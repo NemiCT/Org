@@ -4,15 +4,24 @@ import Header from "./componentes/Header/Header";
 import Formulario from "./componentes/Formulario/Formulario";
 import MiOrg from "./componentes/MiOrg";
 import Equipo from "./componentes/Equipo";
+import Footer from "./componentes/Footer";
 
 function App() {
   const [mostrarForm, actualizarMostrar] = useState(false);
+  const [colaboradores, actualizarColaboradores] = useState([]);
 
   // Ternario --> condicion ? seMuestra : noSeMuestra
   // condicion && seMuestra   <-- Forma corta
 
   const cambiarMostrar = () => {
     actualizarMostrar(!mostrarForm);
+  };
+
+  // Registrar colaborador
+  const registrarColaborador = (colaborador) => {
+    console.log("Nuevo colaborador", colaborador);
+    // Spread operator
+    actualizarColaboradores([...colaboradores, colaborador]);
   };
 
   // Lista de equipos y colores
@@ -59,13 +68,24 @@ function App() {
       <Header />
       {/* {mostrarForm ? <Formulario /> : <></>} */}
       {mostrarForm && (
-        <Formulario equipos={equipos.map((equipo) => equipo.titulo)} />
+        <Formulario
+          equipos={equipos.map((equipo) => equipo.titulo)}
+          registrarColaborador={registrarColaborador}
+        />
       )}
       <MiOrg cambiarMostrar={cambiarMostrar} />
 
       {equipos.map((equipo) => (
-        <Equipo datos={equipo} key={equipo.titulo} />
+        <Equipo
+          datos={equipo}
+          key={equipo.titulo}
+          colaboradores={colaboradores.filter(
+            (colaborador) => colaborador.equipo === equipo.titulo
+          )}
+        />
       ))}
+
+      <Footer />
     </div>
   );
 }
