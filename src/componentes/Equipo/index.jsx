@@ -4,7 +4,7 @@ import "./Equipo.css";
 const Equipo = (props) => {
   // Destructuración
   const { colorSecundario, titulo, colorPrimario } = props.datos;
-  const { colaboradores } = props;
+  const { colaboradores, eliminarColaborador } = props;
 
   const estiloBackground = { backgroundColor: colorSecundario };
 
@@ -20,6 +20,7 @@ const Equipo = (props) => {
               <Colaborador
                 datos={colaborador}
                 colorPrimario={colorPrimario}
+                eliminarColaborador={eliminarColaborador}
                 key={index}
               />
             ))}
