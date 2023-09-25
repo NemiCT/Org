@@ -1,12 +1,13 @@
 import Colaborador from "../Colaborador";
 import "./Equipo.css";
+import hexToRgba from "hex-to-rgba";
 
 const Equipo = (props) => {
   // Destructuración
   const { colorSecundario, titulo, colorPrimario } = props.datos;
-  const { colaboradores, eliminarColaborador } = props;
+  const { colaboradores, eliminarColaborador, actualizarColor } = props;
 
-  const estiloBackground = { backgroundColor: colorSecundario };
+  const estiloBackground = { backgroundColor: hexToRgba(colorPrimario, 0.5) };
 
   const estiloTitulo = { borderColor: colorPrimario };
 
@@ -14,6 +15,14 @@ const Equipo = (props) => {
     <>
       {colaboradores.length > 0 && (
         <section className="equipo" style={estiloBackground}>
+          <input
+            type="color"
+            className="input--color"
+            value={colorPrimario}
+            onChange={(e) => {
+              actualizarColor(e.target.value, titulo);
+            }}
+          />
           <h3 style={estiloTitulo}>{titulo}</h3>
           <div className="colaboradores">
             {colaboradores.map((colaborador, index) => (
