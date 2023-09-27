@@ -15,6 +15,7 @@ function App() {
       foto: "https://github.com/harlandlohora.png",
       nombre: "Harland Lohora",
       puesto: "Instructor en Alura Latam",
+      fav: false,
     },
     {
       id: uuidv4(),
@@ -22,6 +23,7 @@ function App() {
       foto: "https://github.com/genesysR-dev.png",
       nombre: "Genesys Rondón",
       puesto: "Desarrolladora de software e instructora",
+      fav: false,
     },
     {
       id: uuidv4(),
@@ -29,6 +31,7 @@ function App() {
       foto: "https://github.com/JeanmarieAluraLatam.png",
       nombre: "Jeanmarie Quijada",
       puesto: "Instructora en Alura Latam",
+      fav: false,
     },
     {
       id: uuidv4(),
@@ -36,6 +39,7 @@ function App() {
       foto: "https://github.com/christianpva.png",
       nombre: "Christian Velasco",
       puesto: "Head de Alura e instructor",
+      fav: false,
     },
     {
       id: uuidv4(),
@@ -43,6 +47,7 @@ function App() {
       foto: "https://github.com/JoseDarioGonzalezCha.png",
       nombre: "Jose Gonzalez",
       puesto: "Dev. FullStack",
+      fav: false,
     },
   ];
 
@@ -103,9 +108,11 @@ function App() {
 
   // Registrar colaborador
   const registrarColaborador = (colaborador) => {
-    console.log("Nuevo colaborador", colaborador);
     // Spread operator
-    actualizarColaboradores([...colaboradores, colaborador]);
+    actualizarColaboradores([
+      ...colaboradores,
+      { ...colaborador, id: uuidv4(), fav: false },
+    ]);
   };
 
   // Eliminar colaborador
@@ -129,8 +136,17 @@ function App() {
 
   // Crear equipos
   const crearEquipo = (nuevoEquipo) => {
-    console.log(nuevoEquipo);
     actualizarEquipos([...equipos, { ...nuevoEquipo, id: uuidv4() }]);
+  };
+
+  const like = (id) => {
+    const colaboradoresLikes = colaboradores.map((colaborador) => {
+      if (colaborador.id === id) {
+        colaborador.fav = !colaborador.fav;
+      }
+      return colaborador;
+    });
+    actualizarColaboradores(colaboradoresLikes);
   };
 
   return (
@@ -146,15 +162,16 @@ function App() {
       )}
       <MiOrg cambiarMostrar={cambiarMostrar} />
 
-      {equipos.map((equipo) => (
+      {equipos.map((equipo, index) => (
         <Equipo
           datos={equipo}
-          key={equipo.titulo}
+          key={index}
           colaboradores={colaboradores.filter(
             (colaborador) => colaborador.equipo === equipo.titulo
           )}
           eliminarColaborador={eliminarColaborador}
           actualizarColor={actualizarColor}
+          like={like}
         />
       ))}
 

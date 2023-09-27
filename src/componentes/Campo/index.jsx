@@ -1,23 +1,27 @@
-import "./Campo__Texto.css";
+import "./Campo.css";
 
-const Campo__Texto = (props) => {
+const Campo = (props) => {
   const placeholderModif = `${props.placeholder}...`;
+
+  // Destructuración
+  const { type = "text" } = props;
 
   const manejarCambio = (e) => {
     props.actualizarValor(e.target.value);
   };
 
   return (
-    <div className="campo--texto">
+    <div className={`campo campo--${type}`}>
       <label>{props.titulo}</label>
       <input
         placeholder={placeholderModif}
         required={props.required}
         value={props.valor}
         onChange={manejarCambio}
+        type={type}
       />
     </div>
   );
 };
 
-export default Campo__Texto;
+export default Campo;
